@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRUDs — Product Management System</title>
+  <meta name="description" content="A vanilla JavaScript CRUD app for managing products with price, tax, discount and category, using localStorage for persistence." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+
+    <header class="header">
+      <div class="header-top">
+        <h1>CRUDs</h1>
+        <span class="status"><span class="status-dot"></span>Local session active</span>
+      </div>
+      <p>Product management system</p>
+    </header>
+
+    <main>
+      <form class="inputs" id="productForm">
+        <p class="section-label">New entry</p>
+        <label class="sr-only" for="title">Title</label>
+        <input type="text" placeholder="Title" id="title" autocomplete="off" required />
+
+        <div class="price">
+          <div class="field">
+            <label class="sr-only" for="price">Price</label>
+            <input type="number" min="0" step="0.01" placeholder="Price" id="price" />
+          </div>
+          <div class="field">
+            <label class="sr-only" for="taxes">Taxes</label>
+            <input type="number" min="0" step="0.01" placeholder="Taxes" id="taxes" />
+          </div>
+          <div class="field">
+            <label class="sr-only" for="ads">Ads</label>
+            <input type="number" min="0" step="0.01" placeholder="Ads" id="ads" />
+          </div>
+          <div class="field">
+            <label class="sr-only" for="discount">Discount</label>
+            <input type="number" min="0" step="0.01" placeholder="Discount" id="discount" />
+          </div>
+          <output id="total" for="price taxes ads discount">0</output>
+        </div>
+
+        <label class="sr-only" for="count">Quantity</label>
+        <input type="number" min="1" placeholder="Quantity" id="count" />
+
+        <label class="sr-only" for="category">Category</label>
+        <input type="text" placeholder="Category" id="category" />
+
+        <button type="submit" id="submit">Create</button>
+      </form>
+
+      <section class="outputs">
+        <div class="searchblock">
+          <label class="sr-only" for="search">Search</label>
+          <input type="text" id="search" placeholder="Search" autocomplete="off" />
+
+          <div class="search">
+            <button type="button" data-mode="title" class="search-btn">Search by title</button>
+            <button type="button" data-mode="category" class="search-btn">Search by category</button>
+          </div>
+
+          <div id="deleteAllWrap"></div>
+
+          <p class="section-label">Ledger</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Title</th>
+                  <th>Price</th>
+                  <th>Taxes</th>
+                  <th>Ads</th>
+                  <th>Discount</th>
+                  <th>Total</th>
+                  <th>Category</th>
+                  <th>Update</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+            <p id="emptyState" class="empty-state" hidden>No products yet — add your first one above.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="cruds.js"></script>
+</body>
+</html>

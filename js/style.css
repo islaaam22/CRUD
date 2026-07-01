@@ -1,0 +1,383 @@
+/* ==========================================================================
+   Design tokens — "register terminal" direction
+   bg: near-black charcoal · accent: register amber · mono numerics
+   ========================================================================== */
+:root {
+  --bg: #0B0D10;
+  --panel: #14171C;
+  --panel-raised: #1B1F26;
+  --panel-recessed: #0E1013;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  --text: #F2F2F0;
+  --text-dim: #9AA0AA;
+  --text-faint: #5C6270;
+
+  --accent: #FF8A00;
+  --accent-hover: #FFA733;
+  --accent-dim: rgba(255, 138, 0, 0.14);
+
+  --update: #3DDC97;
+  --update-hover: #59E6AA;
+  --delete: #FF4757;
+  --delete-hover: #FF6B78;
+
+  --radius-sm: 4px;
+  --radius: 6px;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(255, 138, 0, 0.06), transparent 40%),
+    radial-gradient(circle at 85% 100%, rgba(61, 220, 151, 0.05), transparent 40%);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.container {
+  width: 92%;
+  max-width: 900px;
+  margin: auto;
+  padding-bottom: 60px;
+}
+
+/* ===== Header ===== */
+.header {
+  margin: 40px auto 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed var(--border-strong);
+}
+
+.header-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.header h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 5vw, 40px);
+  letter-spacing: -0.5px;
+  color: var(--text);
+}
+
+.header p {
+  margin-top: 6px;
+  color: var(--text-dim);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--update);
+  box-shadow: 0 0 8px var(--update);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 28px 0 10px;
+}
+
+.section-label::before {
+  content: '// ';
+  color: var(--text-faint);
+}
+
+/* ===== Form ===== */
+.inputs input,
+.searchblock input {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  background-color: var(--panel);
+  border: 1px solid var(--border);
+  outline: none;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  margin: 5px 0;
+  border-radius: var(--radius);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.inputs input::placeholder,
+.searchblock input::placeholder {
+  color: var(--text-faint);
+}
+
+.inputs input:focus,
+.searchblock input:focus {
+  background-color: var(--panel-raised);
+  border-color: var(--accent);
+}
+
+.price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 5px 0;
+}
+
+.price .field {
+  flex: 1 1 100px;
+}
+
+.price input {
+  width: 100%;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Signature element: LED-style total readout */
+#total {
+  display: block;
+  min-width: 130px;
+  text-align: right;
+  background-color: var(--panel-recessed);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 1px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-strong);
+  text-shadow: 0 0 10px var(--accent-dim), 0 0 16px rgba(255, 138, 0, 0.35);
+  font-variant-numeric: tabular-nums;
+}
+
+#total::before {
+  content: 'TOTAL ';
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-faint);
+  text-shadow: none;
+  letter-spacing: 1.5px;
+  vertical-align: middle;
+}
+
+/* ===== Buttons ===== */
+button {
+  background-color: var(--accent);
+  border: none;
+  height: 44px;
+  border-radius: var(--radius);
+  margin: 5px 0;
+  color: #14171C;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  padding: 0 18px;
+}
+
+button:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.inputs #submit {
+  width: 100%;
+  margin-top: 10px;
+}
+
+#deleteAllWrap button {
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid var(--delete);
+  color: var(--delete);
+}
+
+#deleteAllWrap button:hover {
+  background-color: var(--delete);
+  color: #14171C;
+}
+
+.search {
+  display: flex;
+  gap: 8px;
+}
+
+.search button {
+  flex: 1;
+  background-color: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-dim);
+}
+
+.search button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background-color: var(--accent-dim);
+  transform: none;
+}
+
+/* ===== Table (the ledger) ===== */
+.table-wrap {
+  overflow-x: auto;
+  margin: 10px 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+thead th {
+  background-color: var(--panel);
+  text-transform: uppercase;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+tbody td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+tbody td:nth-child(n+3):nth-child(-n+7) {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-dim);
+}
+
+tbody tr:hover {
+  background-color: var(--panel);
+}
+
+table button {
+  width: 100%;
+  height: 32px;
+  font-size: 12px;
+  padding: 0 8px;
+}
+
+.btn-update {
+  background-color: transparent;
+  border: 1px solid var(--update);
+  color: var(--update);
+}
+
+.btn-update:hover {
+  background-color: var(--update);
+  color: #14171C;
+}
+
+.btn-delete {
+  background-color: transparent;
+  border: 1px solid var(--delete);
+  color: var(--delete);
+}
+
+.btn-delete:hover {
+  background-color: var(--delete);
+  color: #14171C;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 32px;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  .container {
+    width: 94%;
+  }
+
+  .price {
+    flex-direction: column;
+  }
+
+  .price .field {
+    width: 100%;
+  }
+
+  #total {
+    width: 100%;
+    text-align: left;
+  }
+
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
